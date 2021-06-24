@@ -22,7 +22,11 @@
 
 ![](images/bhol602-giteaorg004.png)
 
-输入以下仓库地址，确保拥有者为 boathouse，保持所有默认参数并点击 迁移仓库
+输入以下仓库地址，确保拥有者为 boathouse，并点击 迁移仓库。
+
+ps：
+* 这里**不要勾选“迁移选项”复选框**，否则该仓库将变为只读，无法上传代码，提示：“remote: mirror repository is read-only”。
+* 如果已经迁移了仓库又勾选了“迁移选项”复选框，需要进入“仓库设置”-》“仓库”，将仓库转换为普通仓库。
 
 https://github.com/idcf-boat-house/hello-boathouse.git
 
