@@ -80,6 +80,15 @@ Boathouse资源网盘提供了一系列的资源文件，简化或者加速大�
 - [BHOL404 - k8s应用开发部署 - 使用Service对外提供服务](labs/bhol404.md)
 - [BHOL405 - k8s应用开发部署 - 使用Secrets保存和使用密钥信息](labs/bhol405.md)
 - [BHOL406 - k8s应用开发部署 - 使用Namespace隔离应用](labs/bhol406.md)
+- [BHOL501 - 创建Git代码库，并推送至Gitea服务器](labs/bhol501.md)
+- [BHOL502 - 讨厌的产品经理之本地工作流](labs/bhol502.md)
+- [BHOL503 - 讨厌的产品经理之服务器工作流](labs/bhol503.md)
+- [BHOL601 - 初始化Jenkins服务器](labs/bhol601.md)
+- [BHOL602 - 创建Gitea组织配置](labs/bhol602.md)
+- [BHOL603 - 为hello-boathouse添加Jenkinsfile并完成基础流水线配置](labs/bhol603.md)
+- [BHOL701 - 在流水线中增加单元测试环节](labs/bhol701.md)
+- [BHOL702 - 在流水线中增加SonarQube代码扫描环节](labs/bhol702.md)
+- [BHOL703 - 在流水线中增加Kubernetes环境部署并进行人工审批](labs/bhol703.md)
 
 ## 常见问题
 
