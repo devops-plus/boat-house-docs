@@ -1,4 +1,4 @@
-# IDCF DevOps 黑马马拉松操作手册
+# IDCF DevOps 黑马马拉松操作手册 (云智慧版)
 
 ## 1. 环境概述
 
@@ -6,7 +6,7 @@
 
 ![Boathouse Environment](images/boathouse-env-architecture.png)
 
-环境配置如下：
+基础设施环境说明：
 
 - 2台 Linux 虚拟机（团队自行分配2台VM的用途）
   - VM#1: VM-Tools（用于搭建工具链） （CPU: 2 Core MEM: 8G）
@@ -15,33 +15,31 @@
 - 1个 k8s 集群（使用微软Azure云的Azure Kubernetes Services）
   - k8s 总会通过 命名空间（NS）划分成 Test/Prod 两个环境
 
+应用环境说明：
+- 开发调测环境（DEV）：使用docker单机环境，代码提交后，通过流水线自动完成部署
+- 测试环境（TEST）：使用k8s集群中的Namespace环境，DEV环境部署通过后，由测试团队批准对TEST环境的部署
+- 生产环境（PROD）：使用k8s集群中的Namespace环境，TEST环境部署通过后，由测试团队完成测试并提交测试报告，产品团队确认后，批准对PROD环境的部署
+
+
 ### 获取团队云资源
 
-黑客马拉松的环境通过 [DevOps实验室](https://labs.devcloudx.com) 提供，讲师会在现场发放环境激活码给各团队的负责人。
+云智慧所使用的流水线基础环境已经搭建完毕，各团队可以直接申请加入对应的Gitee组织即可开始提交代码，并通过流水线完成自动化部署。
 
 **注意：每一个团队只有一套环境! 大家注意做好分工。**
 
-## 2. 基础流水线搭建和dev环境部署
+## 2. 基础流水线
 
-### 2.2 团队环境配置
+各团队需要提交开发团队成员的Gitee账号给到讲师，讲师为每个团队成员完成组织授权后，小组成员即可开始使用Gitee组织下的代码库。
 
-- [示例代码导入](version-control-config.md): 按照此文档完成Gitee上面的代码库复制（Fork）。
+![Gitee Org](images/gitee-org.png)
 
-- [Jenkins服务器搭建](team-env-config.md)：按照此文档完成Jenkins服务器搭建，添加节点并安装插件。
-
-- [Jenkins环境变量配置](team-pipeline-config.md)：按照此文档完成Jenkins中各种环境变量和密钥的配置
-
-### 2.3 Boathouse 前后端流水线搭建 - 部署到DEV环境
-
-- [完成流水线搭建并部署到Dev环境](team-dev-env-deploy.md)：完成流水线搭建，并使用流水线完成Dev环境的自动化部署
-
-### 2.4 团队快速开发指南 - 本地调试（可选）
+请按照以下快速开发指南完成前后端代码的本地调试，并在前端Client应用的菜单中增加一个选项，通过流水线自动部署到DEV环境。
 
 - [快速开发指南](dev-guide.md)：搭建本地开发环境，完成Boathouse前后端代码的联调。
 
 ## 3. 完整流水线搭建和测试/生产环境部署
 
-### 3.1 加分项必选项 - 团队 k8s 环境（TEST & PROD）部署
+### 3.1 加分项必选项 - 团队 K8s 环境（Test & Prod）部署
 
 **注意**：团队必须首先完成此加分项才能开始进入3.2所列的其他加分项，否则视为无效得分。
 
@@ -53,6 +51,9 @@
 
 | 序号 | 任务名称 | 验收标准  |
 | ------------ | --------- | --------- |
+| cw001 | 使用karate API进行自动化测试 | 完成karate环境搭建，并集成到现有流水线，确保可以查看测试报告。如果可以自行编写1-2个测试用例，另外加1分。参考文档 [jenkins 调度karate API 自动测试](docs/quick-start/guide/karate-API-testing/Readme.md) |
+| cw002 | 使用nGrinder进行接口性能测试 | 完成nGrinder环境搭建，并对Boathouse后端接口进行压力测试，至少完成3个接口的压力测试，测试执行时间不少于3分钟，可以展示测试报告。参考文档 [nGrinder 接口性能测试](docs/quick-start/guide/nGrinder-perf-testing/Readme.md) |
+| cw003 | 使用透视宝定位并修复性能问题 | 完成透视宝环境搭建并结合以上nGrinder自动化测试定位Boathouse后台接口中的性能问题，修复此文档并通过数据证明性能问题已经修复。参考文档 [TSB JavaAgent 探针安装](docs/quick-start/guide/TSB-Agent-use/Readme.md) |
 | 001 | 在流水线中增加基于SonarQube的静态代码检查 | 完成SonarQube服务器搭建并集成到现有流水线，可以通过SonarQube页面查看后端代码的检查结果。如果可以修复至少一个代码问题，额外加1分。 参考文档 [Sonarqube配置指南](../../quick-start/guide/sonarqube/Readme.md) |
 | 002 | 在流水线中添加单元测试环节 | 通过现有流水线执行代码中提供的单元测试用例，可以通过Jenkins内置的测试结果视图查看测试结果，如果可以增加一个以上的测试用例，额外加1分。 参考文档 [快速创建Junit测试](../..//quick-start/guide/junit-testing/Readme.md) [Idea 快速创建Junit测试](../../quick-start/guide/junit-testing/Readme.md) |
 | 003 | 在流水线中集成基于 Selenium 的自动化UI测试 | 在DEV环境部署Selenium Grid环境，并使用 Selenium Grid 运行文档中提供的测试代码，最终需要在流水线中执行这些测试并且通过 jenkins 的测试结果视图查看到结果。参考文档 [Selenium自动化UI测试](../../quick-start/guide/selenium-ui-testing/Readme.md) [Jenkins调度Selenium](../../quick-start/guide/selenium-for-jenkins/Readme.md) |

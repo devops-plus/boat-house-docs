@@ -10,10 +10,9 @@
 ## 培训及操作手册
 
 * [IDCF DevOps黑客马拉松操作手册](docs/workshops/hackathon/README.md)
+* [IDCF DevOps黑客马拉松操作手册（云智慧版）](docs/workshops/hackathon/README-cloudwise.md)
 * [IDCF BoatHouse DevOps 实战训练营(开源版)](docs/workshops/boathouse-e2e-opensource/README.md)
 
-**boathouse 二期共创**
-目前筹备中。。。
 
 **boathouse 一期共创**
 * [项目组成员](docs/quick-start/operation/team-member.md)
@@ -127,6 +126,7 @@
 
 
 ## 工具指导文档
+
 * [jenkins 调度karate API 自动测试](docs/quick-start/guide/karate-API-testing/Readme.md)
 * [nGrinder 接口性能测试](docs/quick-start/guide/nGrinder-perf-testing/Readme.md)
 * [TSB JavaAgent 探针安装](docs/quick-start/guide/TSB-Agent-use/Readme.md)
@@ -134,6 +134,7 @@
 * [Jenkins调度Selenium](docs/quick-start/guide/selenium-for-jenkins/Readme.md)
 * [Sonarqube配置指南](docs/quick-start/guide/sonarqube/Readme.md)
 * [快速创建Junit测试](docs/quick-start/guide/junit-testing/Readme.md)
+* [Idea 快速创建Junit测试](docs/quick-start/guide/junit-testing/Readme.md)
 * [Nexus搭建及使用指南](docs/quick-start/guide/nexus/readme.md)
 * [Postman接口测试指南](docs/quick-start/guide/postman-api-testing/Readme.md)
 * [Azure快速搭建K8s环境](docs/quick-start/guide/k8s-azure/Readme.md)
@@ -148,8 +149,6 @@
 * [k82mysql集群](docs/quick-start/guide/mysql-k8s-deploy/Readme.md)
 * [使用 helm chart 部署 boat-house ](docs/quick-start/guide/k8s-helm-deploy-boat-house/README.md)
 * [使用 Flyway 进行数据库持续交付](docs/quick-start/guide/java-flyway-db-pipeline/Readme.md)
-* [Idea 快速创建Junit测试](docs/quick-start/guide/junit-testing/Readme.md)
-
 
 ## Contribute Guide：
 

@@ -1,20 +1,28 @@
-### Boat House开发环境部署
+# 完成Boathouse流水线搭建并部署到DEV环境
 
-
-在前面的文档中，我们已经部署好Jenkins的流水线，接下来将部署Boat House的Dev环境。
+在前面的文档中，我们已经部署好Jenkins的流水线，接下来将部署Boathouse的Dev环境所使用的虚拟机。
 我们将会在云资源的另外一台虚拟机 Docker VM 上部署团队自己的Dev环境：
 
+## DEV环境虚拟机配置
 
-#### 安装Docker
+### 登录虚拟机
 
-请使用ssh命令登录vm-dev，并参考如下命令安装Docker以及docker-compose
+使用ssh登录vm1
 
+```shell
+## 如果使用DevOps实验室环境，请使用实验室环境资源中提供的用户名
+## 我们提供了2台VM，请自行决定2台VM的角色
+ssh <username>@<ip/hostname>
 ```
+
+### 安装Docker和Docker-Compose工具
+
+```shell
 ## 更新包管理数据库
 sudo apt-get update
 ## 安装docker
 sudo apt install docker.io
-sudo usermod -a -G docker ghuser
+sudo usermod -a -G docker {你当前的登录用户名}
 
 ## 安装docker-compose
 ### docker-compose 官方安装地址（如果此地址安装不成功，请使用以下国内镜像地址）
@@ -33,45 +41,68 @@ sudo gpasswd -a $USER docker
 newgrp docker
 ```
 
-
-
 运行完以上命令重新登陆虚拟机,并执行以下命令，测试Docker是否安装成功
-```
+
+```shell
 docker --version
 docker-compose --version
 ```
 
+## 导入Boathouse前后端代码流水线配置
 
+1. 进入jenkins首页，点击进入左侧菜单栏中 **open blue ocean** 的菜单
 
-#### Jenkins添加Docker VM的连接密钥
-1. 打开Jenkins流水线，进入凭据配置界面，点击添加凭证
-![image.png](images/teamguide-cd-01.png)
-1. 添加vm-dev的连接密钥
-用户名密码为登陆vm-dev的用户名密码，ID需为‘creds-dev-server’。
-![image.png](images/teamguide-cd-02.png)
+![image.png](.attachments/image-36a3e741-2840-4470-a045-2a00503ad262.png)
 
-#### Jenkins添加Docker Registry的连接密钥
+1. 进入后，根据提示，点击下方的按钮，创建流水线
+![image.png](.attachments/image-b33842d4-c08a-49c5-8621-c1560d31492a.png)
 
+1. 仓库类型选择 git,如下图所示：
 
-管理员提供给本组的镜像仓库的用户名以及密码，ID需'creds-github-registry’。
-![image.png](images/teamguide-cd-06-v2.png)
+![image.png](.attachments/jenkins01.png)
 
-#### Jenkins添加SonarQube链接Token（类型：Secret Text）
+2. 获取仓库地址，如下图所示：
 
-Secret可以暂时不填写，后面配置Sonar时在配置,ID需 ‘token_sonarqube’
+![image.png](images/gitee-url.png)
 
-注意：此配置虽然在没有用sonar的情况下没有用，但是jenkinsfile中使用了这个token，如果不配置流水线将无法运行。你可以在后续启用son的时候再更新此token为正确的取值，当前可以输入任何内容
+3. 输入boat-house-frontend仓库地址，并点击创建流水线，如下图所示：
 
-![image.png](images/sonar01.png)
+![image.png](.attachments/jenkins02.png)
 
+4. 流水线创建中
 
-#### 启动master分支构建
+![image.png](.attachments/jenkins03.png)
+
+5. 进入流水线主页，可以看到基于Repo中Jenkins File成功创建出流水线。
+
+![image.png](.attachments/image-3c7d5ea4-52bf-4c49-9e0c-8375d8c027cc.png)
+
+6. 点击当前流水线进入流水线活动页面
+![image.png](images/teamguide-ci-00.png)
+
+7. 点击分支 Tab，点击某个分支后的修改button可以查看流水线的具体设置及任务
+![image.png](images/teamguide-ci-01.png)
+![image.png](images/teamguide-ci-02.png)
+
+8. 修改jenkinsfile默认地址：
+
+![image.png](.attachments/jenkins04.png)
+
+9. 脚本路径改为：devops/jenkins/jenkinsfile
+
+![image.png](.attachments/jenkins05.png)
+
+10. 按照同样的方式完成boat-house-backend仓库的导入以及配置。
+
+## 启动master分支构建
+
 1. 点击master分支后面的构建button，启动构建
 ![image.png](images/teamguide-cd-10.png)
 1. 构建过程中查看输出情况
 ![image.png](images/teamguide-cd-11.png)
 
-#### 查看部署结果
+### 查看部署结果
+
 Dev环境部署完毕，打开以下链接，查看部署结果：
 1. Client Web 
 http://{vm-dev ip address}:5000
